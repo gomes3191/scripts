@@ -1,0 +1,25 @@
+
+
+Logando no postgreSQL:
+Logando com usuário postgres: su postgres
+
+Logando no banco:   sudo -u postgres psql
+
+Backup do banco de dados: pg_dump -U db_user -W -F t db_name > /path/to/your/file/dump_name.tar
+
+    -U to specify which user will connect to the PostgreSQL database server.
+    -W or --password will force pg_dump to prompt for a password before connecting to the server.
+    -F is used to specify the format of the output file, which can be one of the following:
+        p – plain-text SQL script
+        c – custom-format archive
+        d – directory-format archive
+        t – tar-format archive
+
+
+Restaurando banco por meio do psql
+psql -U db_user db_name < dump_name.sql
+
+
+Restaurando o banco logado como postgres:
+pg_restore -cC -U postgres --verbose -d dec  /home/gomes/Downloads/sigpima.backup
+
