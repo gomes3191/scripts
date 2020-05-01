@@ -1,4 +1,6 @@
 
+ALterando a senha do PostgresSQL:
+sudo passwd postgres
 
 Logando no postgreSQL:
 Logando com usuário postgres: su postgres
