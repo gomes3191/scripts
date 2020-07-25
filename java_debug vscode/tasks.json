@@ -1,0 +1,39 @@
+{
+      "version": "2.0.0",
+      "tasks": [
+          {
+              "label": "run-tomcat",
+              "type": "shell",
+              "command": "MAVEN_OPTS=\"$MAVEN_OPTS -agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n -DenvTarget=my\" mvn tomcat:run",
+              "group": "build",
+              "isBackground": true,
+              "problemMatcher": [{
+                  "pattern": [{
+                      "regexp": "\\b\\B",
+                      "file": 1,
+                      "location": 2,
+                      "message": 3
+                  }],
+                  "background": {
+                      "activeOnStart": true,
+                      "beginsPattern": "^.*Listening for",
+                      "endsPattern": "^.*transport dt_socket at address.*"
+                  }
+              }]
+          },
+          {
+              "label": "stop-tomcat",
+              "type": "shell",
+              "command": "echo ${input:terminate}}",
+              "problemMatcher": []
+          }
+      ],
+      "inputs": [
+          {
+              "id": "terminate",
+              "type": "command",
+              "command": "workbench.action.tasks.terminate",
+              "args": "run-tomcat"
+          }
+      ]
+  }

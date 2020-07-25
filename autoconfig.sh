@@ -24,12 +24,12 @@ sudo usermod -a -G www-data $us
 
 #Mudar a permissão da pasta 
 sudo rm -rv /var/www/*
-sudo ln -s $HOME/development/glinic /var/www/
+sudo ln -s ~/development/glinic /var/www/
 sudo chmod 4775 -R /var/www
 sudo chown www-data:$us -R /var/www
 
-sudo chmod 4775 -R $HOME/development
-sudo chown www-data:$us -R $HOME/development
+sudo chmod 4775 -R $(cat /etc/passwd |grep ^$us | cut -d : -f 6)/development
+sudo chown www-data:$us -R $(cat /etc/passwd |grep ^$us | cut -d : -f 6)/development
    
 # se usuário não existir faz isso
 else
