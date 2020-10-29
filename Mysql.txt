@@ -1,0 +1,36 @@
+# Remoção completa do Mysql
+sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+
+sudo apt-get remove mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+
+sudo rm -rf /etc/mysql /var/lib/mysql
+
+sudo apt-get autoremove
+
+sudo apt-get autoclean
+
+
+# Mysql 8 resolve problema com password
+sudo mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Vectra';
+
+Workbench crash with message: locale::facet::_S_create_c_locale name not valid
+
+Hi, 
+
+I attempt to change my default language to english and.... He is live!
+
+Go to the works fine for me:
+
+1 - edit: /etc/locale.gen 
+Find and uncoment line like this: 
+#en_US.UTF-8 UTF-8
+
+Save end close file
+
+2 - run: sudo locale-gen
+Generating locales...
+  en_US.UTF-8... done
+  pt_BR.UTF-8... done
+Generation complete.
+

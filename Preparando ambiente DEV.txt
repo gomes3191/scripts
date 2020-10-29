@@ -1,6 +1,5 @@
 Passo 2: Configurando Xdebug
 
-
 sudo find /usr -type f -name xdebug.so
 
 /usr/lib/php/20131226/xdebug.so
@@ -9,22 +8,18 @@ sudo nano /etc/php/7.>/cli/conf.d/20-xdebug.ini
 
 
 # Adicionar em 20-xdebug.ini
-zend_extension="/usr/lib/php/20170718/xdebug.so"
+zend_extension="/usr/lib/php/20190902/xdebug.so"
 xdebug.remote_enable=1
+xdebug.remote_autostart=1
 xdebug.remote_handler=dbgp
 xdebug.remote_host=127.0.0.1
 xdebug.remote_port=9000
 xdebug.profiler_enable=1
 xdebug.profiler_output_dir="~/"
 xdebug.max_nesting_level=250
-
-
-
-
-
-
-
-
+xdebug.extended_info=1
+xdebug.default_enable=true
+xdebug.force_display_errors=1
 
 
 Ativando apache para URL amigável 

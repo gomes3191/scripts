@@ -1,6 +1,8 @@
 
 ALterando a senha do PostgresSQL:
 sudo passwd postgres
+sudo -u user_name psql db_name
+ALTER USER user_name WITH PASSWORD 'new_password';
 
 Logando no postgreSQL:
 Logando com usuário postgres: su postgres
@@ -16,7 +18,6 @@ Backup do banco de dados: pg_dump -U db_user -W -F t db_name > /path/to/your/fil
         c – custom-format archive
         d – directory-format archive
         t – tar-format archive
-
 
 Restaurando banco por meio do psql
 psql -U db_user db_name < dump_name.sql

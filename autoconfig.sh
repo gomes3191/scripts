@@ -61,6 +61,7 @@ sudo chown www-data:$us -R /var/www
 
 sudo chmod 4775 -R $(cat /etc/passwd |grep ^$us | cut -d : -f 6)/development
 sudo chown www-data:$us -R $(cat /etc/passwd |grep ^$us | cut -d : -f 6)/development
+sudo chown $us:$us -R $(cat /etc/passwd |grep ^$us | cut -d : -f 6)/development
    
 # se usuário não existir faz isso
 else

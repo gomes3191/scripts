@@ -22,12 +22,17 @@ Cyan='\033[0;36m'         # Cyan
 echo "$Cyan \n Atualizando sistema.. $Color_Off"
 sudo apt-get update -y && sudo apt-get upgrade -y
 
-## Instalando o git
-sudo apt-get install git
+# Instalação dos essenciais.
+echo "$Cyan \n Instalando git e curl... $Color_Off"
+sudo apt-get install git curl -y
+
+echo "$Cyan \n Instalando instalando composer... $Color_Off"
+sudo curl -s https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
 
 ## Install AMP
 echo "$Cyan \n Instalando Apache2... $Color_Off"
-sudo apt-get install apache2 apache2-doc apache2-utils libexpat1 ssl-cert -y
+#sudo apt-get install apache2 apache2-doc apache2-utils libexpat1 ssl-cert -y
 
 #echo "$Cyan \n Instalando PHP & Dependências... $Color_Off"
 #sudo apt-get install php php-zip libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php-opcache php-readline php-xml php-dev php-gd php-pear php-imagick php-pgsql php-pspell php-xsl php-xdebug -y
@@ -37,14 +42,15 @@ sudo apt-get install apache2 apache2-doc apache2-utils libexpat1 ssl-cert -y
 #sudo apt-get install postgresql postgresql-contrib
 
 
+
 echo "$Cyan \n Instalando PHP5.6 & Dependências... $Color_Off"
-sudo apt-get install php5.6 libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php5.6-opcache php-readline php7.3-xml php-dev php-gd php-pear dh-php php-imagick php-mysql php-pspell php-recode php5.6-xdebug -y
+sudo apt-get install php libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php7.4-opcache php-readline php-xml php-dev php-gd php-pear dh-php php-imagick php-mysql php-pspell php-xdebug -y
 
 echo "$Cyan \n Instalando MySQL... $Color_Off"
-#sudo apt-get install libmysqlclient-dev mysql-client-5.7 mysql-server-5.7 libhtml-template-perl libaio1 #mysql-workbench
+sudo apt-get install   mysql-client-8.0 mysql-client-core-8.0 mysql-server-8.0 mysql-server-core-8.0
 
 # Instala mysql community versão + recente
-sudo apt-get install mysql-community-server mysql-community-client libmysqlclient-dev libhtml-template-perl libaio1 #mysql-workbench-community
+sudo apt-get install mysql-community-server mysql-community-client libmysqlclient-dev libhtml-template-perl libaio1 -y mysql-workbench-community
 
 
 #echo "$Cyan \n Installing phpMyAdmin $Color_Off"
