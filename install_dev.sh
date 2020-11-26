@@ -23,34 +23,30 @@ echo "$Cyan \n Atualizando sistema.. $Color_Off"
 sudo apt-get update -y && sudo apt-get upgrade -y
 
 ## Instalando o git
-sudo apt-get install git
+sudo apt-get -y install git
 
 ## Install AMP
 echo "$Cyan \n Instalando Apache2... $Color_Off"
-sudo apt-get install apache2 apache2-doc apache2-utils libexpat1 ssl-cert -y
+sudo apt-get -y install apache2 apache2-doc apache2-utils libexpat1 ssl-cert -y
 
 echo "$Cyan \n Instalando PHP & Dependências... $Color_Off"
-sudo apt-get install php php-zip libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php-opcache php-readline php-xml php-dev php-gd php-pear php-imagick php-pgsql php-pspell php-recode php-xsl php-xdebug -y
+sudo apt-get -y install php php-zip libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php-opcache php-readline php-xml php-dev php-gd php-pear php-imagick php-mysql php-pspell php-xsl php-xdebug -y
+
+#sudo apt-get -y install php php-zip libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php-opcache php-readline php-xml php-dev php-gd php-pear php-imagick php-pgsql php-pspell php-xsl php-xdebug -y
 
 
-echo "$Cyan \n Instalando PostgreSQL... $Color_Off"
-sudo apt-get install postgresql postgresql-contrib
 
+echo "$Cyan \n Instalando MariaDB... $Color_Off"
+sudo apt-get -y install mariadb-server mariadb-client
 
-#echo "$Cyan \n Instalando PHP & Dependências... $Color_Off"
-#sudo apt-get install php7.3 libapache2-mod-php php-common php-curl php-cli php-mbstring php-common php-json php7.3-opcache php-readline php7.3-xml php-dev php-gd php-pear dh-php php-imagick php-mysql php-pspell php-recode php-xdebug -y
-
-echo "$Cyan \n Instalando MySQL... $Color_Off"
-#sudo apt-get install libmysqlclient-dev mysql-client-5.7 mysql-server-5.7 libhtml-template-perl libaio1 mysql-workbench
-
-# Instala mysql community versão + recente
-#sudo apt-get install mysql-community-server mysql-community-client mysql-workbench-community libmysqlclient-dev libhtml-template-perl libaio1
+#echo "$Cyan \n Instalando PostgreSQL... $Color_Off"
+#sudo apt-get install postgresql postgresql-contrib
 
 
 #echo "$Cyan \n Installing phpMyAdmin $Color_Off"
 #sudo apt-get install phpmyadmin -y
 
-## TWEAKS and Settings
+# TWEAKS and Settings
 # Permissions
 echo "$Cyan \n Configurando permissão para /var/www $Color_Off"
 sudo chown -R www-data:www-data /var/www

@@ -20,10 +20,18 @@ Hi,
 
 I attempt to change my default language to english and.... He is live!
 
+
+sudo apt-get install --reinstall locales
+
+sudo dpkg-reconfigure locales
+
+
+apt-get install language-pack-pt-br
+
 Go to the works fine for me:
 
 1 - edit: /etc/locale.gen 
-Find and uncoment line like this: 
+Encontre e descomente a linha assim:
 #en_US.UTF-8 UTF-8
 
 Save end close file
