@@ -1,0 +1,64 @@
+# Criado por: Francisco - gomes.tisystem@gmail.com
+version: "3"
+services: #PHP App
+  app:
+    build:
+      args:
+        user: $USER
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: app-php
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./${APP_DIRNAME}:/var/www
+    networks:
+      - app-network
+
+  # Definições do banco de dados
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - ${DB_HOST}:${DB_PORT}
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      app-network:
+        aliases:
+          - mysql #Any container connected to test network can access this simply by using mysql as hostname
+
+  # Definições do nginx
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 80:80
+    volumes:
+      - ./${APP_DIRNAME}:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+# Definições de rede;
+networks:
+  app-network:
+    driver: bridge
+
+#Corrigi problema de bridge -> docker system prune -a --volumes && docker network prune

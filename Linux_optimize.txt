@@ -1,0 +1,32 @@
+swappiness: Controla como o kernel realiza as trocas de cache na RAM. Ao aumentar esse valor, aumentará a quantidade de trocas. O valor padrão é 60, colocando 10 significa que a Swap só será usada quando a RAM atingir 90%.
+
+vfs_cache_pressure: Controla a tendência do kernel para recuperar a memória que é usada no cache do sistema virtual de arquivos. O valor 50 é o ideal, valores mais altos podem deixar o sistema lento e muito baixos reduzem o uso do cache.
+
+
+O ZRam é um módulo do kernel capaz de criar blocos de cache, semelhante a swap, porém ao invés do cache ficar no HD, ele permanece direto na memória, o que agiliza a execução de programas.
+
+No Ubuntu, basta dar um apt-get para instalá-lo:
+
+sudo apt-get install zram-config
+
+
+Reduzindo o uso de swap.
+
+Abra o arquivo
+
+sudo nano /etc/sysctl.conf
+
+Agora, copie e cole o seguinte código ao final do arquivo:
+
+#Reduz o uso de SWAP
+vm.swappiness=10
+
+#Melhora a gestão de cache
+vm.vfs_cache_pressure=50
+
+Agoras reinicie ou execute o comando:
+sudo sysctl -p /etc/sysctl.conf
+
+Verificando se o valor foi definido:
+sudo sysctl vm.swappiness
+

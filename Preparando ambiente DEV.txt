@@ -88,6 +88,18 @@ display_startup_errors
 log_errors
 
 
+Install NPM and nodeJS
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+
+
+sudo ln -s /usr/bin/krb5-config.mit /usr/bin/krb5-config
+sudo ln -s /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+sudo apt-get install python-pip libkrb5-dev
+sudo pip install gssapi
+
+
+
+
 
 
 

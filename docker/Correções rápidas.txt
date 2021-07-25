@@ -1,0 +1,10 @@
+Resolução de problemas docker:
+
+    Remove all containers, so docker ps --all shows nothing.
+    sudo systemctl stop docker
+    sudo rm /var/lib/docker/network/files/local-kv.db
+    sudo systemctl start docker
+    
+    Restart para corrigir:
+    sudo service docker restart
+
