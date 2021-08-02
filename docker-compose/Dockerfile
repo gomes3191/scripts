@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
     libldap2-dev \
     libxml2-dev \
     libmagickwand-dev --no-install-recommends \
-    && pecl install imagick
+    && pecl install imagick \
+    xdebug
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -27,7 +28,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install PHP extensions, configure and enable
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install gd dom opcache pdo ldap pdo_mysql mysqli mbstring exif pcntl soap bcmath json \
-&& docker-php-ext-enable pdo_mysql imagick
+&& docker-php-ext-enable pdo_mysql imagick xdebug
 
 # Add UID '1000' to www-data
 #RUN usermod -u 1000 www-data

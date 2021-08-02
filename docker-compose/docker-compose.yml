@@ -1,5 +1,6 @@
 # Criado por: Francisco - gomes.tisystem@gmail.com
-version: "3"
+version: "3.5"
+
 services: #PHP App
   app:
     build:
@@ -13,11 +14,14 @@ services: #PHP App
     restart: unless-stopped
     tty: true
     environment:
+      PHP_IDE_CONFIG: "serverName=docker-dev"
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
-      - ./${APP_DIRNAME}:/var/www
+      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
     networks:
       - app-network
 
@@ -36,7 +40,7 @@ services: #PHP App
     ports:
       - ${DB_HOST}:${DB_PORT}
     volumes:
-      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+      - ./mysql:/docker-entrypoint-initdb.d
     networks:
       app-network:
         aliases:
@@ -51,14 +55,15 @@ services: #PHP App
     ports:
       - 80:80
     volumes:
-      - ./${APP_DIRNAME}:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
+      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ./nginx:/etc/nginx/conf.d/
     networks:
       - app-network
 
 # Definições de rede;
 networks:
   app-network:
+    name: app-network
     driver: bridge
 
 #Corrigi problema de bridge -> docker system prune -a --volumes && docker network prune
