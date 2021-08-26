@@ -9,12 +9,13 @@ services: #PHP App
         uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: app-php
+    image: app-main
     container_name: app
     restart: unless-stopped
     tty: true
     environment:
-      PHP_IDE_CONFIG: "serverName=docker-dev"
+      XDEBUG_CONFIG: "idekey=${APP_IDE} client_host=${APP_CLIENT_IP} client_port=${APP_CLIENT_PORT}"
+      PHP_IDE_CONFIG: "serverName=${APP_SERVER_NAME}"
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www
