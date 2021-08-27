@@ -1,10 +1,14 @@
 # Criado por: Francisco - gomes.tisystem@gmail.com.
-# Set master image
-FROM php:7.4-fpm
 
-# Arguments defined in docker-compose.yml
-ARG user=$USER
-ARG uid=1000
+# Argumento definido em docker-compose.yml
+ARG PHP_IMG_VERSION
+
+# Set master image
+FROM php:${PHP_IMG_VERSION}
+
+# Argumentos definidos em docker-compose.yml
+ARG user
+ARG uid
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -51,7 +55,3 @@ RUN mkdir -p /home/$user/.composer && \
 WORKDIR /var/www
 
 USER $user
-
-# Expose port 9000 and start php-fpm server
-#EXPOSE 9000
-#CMD ["php-fpm"]
