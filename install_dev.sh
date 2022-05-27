@@ -37,7 +37,7 @@ sudo apt-get -y install php php-zip libapache2-mod-php php-common php-curl php-c
 
 
 echo "$Cyan \n Instalando MariaDB... $Color_Off"
-sudo apt-get -y install mariadb-server mariadb-client
+#sudo apt-get -y install mariadb-server mariadb-client
 
 #echo "$Cyan \n Instalando PostgreSQL... $Color_Off"
 #sudo apt-get install postgresql postgresql-contrib
