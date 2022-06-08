@@ -31,6 +31,7 @@ docker rename  – Renomeia um container existente.
 docker restart – Restarta um container que está rodando ou parado.
 docker rm      – Remove um ou mais containeres.
 docker rmi     – Remove uma ou mais imagens.
+docker rmi $(docker images -q) - Remove todas as imagens.
 docker run     – Executa um comando em um novo container.
 docker save    – Salva a imagem em um arquivo .tar.
 docker search  – Procura por uma imagem no Docker Hub.
@@ -46,5 +47,7 @@ docker update  – Atualiza a configuração de um ou mais containers.
 docker version – Exibe as versões de API, Client e Server do host.
 docker volume  – Gerenciamento dos volumes no Docker.
 docker wait    – Aguarda o retorno da execução de um container para iniciar esse container.
+
+
 
 Obs.: É possível ver todos os comandos que o Docker possui, tendo o docker instalado, basta digitar no terminal docker --help
