@@ -1,24 +1,9 @@
 # Criado por: Francisco - gomes.tisystem@gmail.com
 version: "3.5"
 services:
-  # Definições do nginx
-  sw: # Servidor Web (SW)
-    image: nginx:alpine
-    container_name: nginx
-    restart: unless-stopped
-    #environment:
-      #SERVICE_NAME: ${APP_SERVER_NAME}
-      #SERVICE_TAGS: dev
-    tty: true
-    ports:
-      - 80:80
-    volumes:
-      - ./${APP_DIRECTORY_PATH}:/var/www
-      - ./nginx:/etc/nginx/conf.d/
-    networks:
-      - app-network
-
-  lp: # Lingugem de Programação (LP)
+  # Definições do Servidor de Aplicação (SApp)
+  webapp:
+    # Servidor de Aplicação (PHP)
     build:
       args:
         user: $USER
@@ -26,8 +11,8 @@ services:
         PHP_IMG_VERSION: ${PHP_IMG_VERSION}
       context: ./
       dockerfile: Dockerfile
-    image: php:${PHP_VERSION}
-    container_name: php
+    image: php
+    container_name: webapp
     restart: unless-stopped
     tty: true
     environment:
@@ -44,8 +29,9 @@ services:
     networks:
       - app-network
 
-  # Definições do banco de dados
-  bd: # Banco de Dados (bd)
+  # Definições do Servidor de Banco de Dados (SBD)
+  mysql:
+    # Banco de Dados (MySQL)
     image: mysql:8.0
     container_name: mysql
     restart: unless-stopped
@@ -63,9 +49,27 @@ services:
     networks:
       app-network:
         aliases:
-          - mysql #Any container connected to test network can access this simply by using mysql as hostname
+          - mysql_host #Any container connected to test network can access this simply by using mysql as hostname
 
-# Definições de rede;
+  # Definições do Servidor Web (SW)
+  nginx:
+    # Servidor Web (Nginx)
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    #environment:
+    #SERVICE_NAME: ${APP_SERVER_NAME}
+    #SERVICE_TAGS: dev
+    tty: true
+    ports:
+      - 80:80
+    volumes:
+      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+# Definições de Rede;
 networks:
   app-network:
     name: app-network

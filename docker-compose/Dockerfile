@@ -4,7 +4,7 @@
 ARG PHP_IMG_VERSION
 
 # Set master image
-FROM php:${PHP_IMG_VERSION}
+FROM ${PHP_IMG_VERSION}
 
 # Argumentos definidos em docker-compose.yml
 ARG user
@@ -43,15 +43,18 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 # Change current user to www
 #USER www-data
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Obtém o composer mais recente
+#COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
-# Set working directory
+# Defini diretório de trabalho
 WORKDIR /var/www
 
 USER $user
