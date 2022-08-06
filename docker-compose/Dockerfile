@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
+    zip libzip-dev \
     unzip \
     libldap2-dev \
     libxml2-dev \
@@ -30,8 +30,9 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions, configure and enable
-RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
-&& docker-php-ext-install gd dom opcache pdo ldap pdo_mysql mysqli mbstring exif pcntl soap bcmath json \
+RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \ 
+&& docker-php-ext-configure zip \
+&& docker-php-ext-install zip gd dom opcache pdo ldap pdo_mysql mysqli mbstring exif pcntl soap bcmath json \
 && docker-php-ext-enable pdo_mysql imagick xdebug
 
 # Add UID '1000' to www-data
