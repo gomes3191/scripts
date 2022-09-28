@@ -30,3 +30,10 @@ sudo sysctl -p /etc/sysctl.conf
 Verificando se o valor foi definido:
 sudo sysctl vm.swappiness
 
+
+Remove snapd ZORIN OS
+
+sudo rm -rf /var/cache/snapd
+
+sudo apt-get remove --purge snapd
+

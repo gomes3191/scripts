@@ -35,6 +35,7 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install zip gd dom opcache pdo ldap pdo_mysql mysqli mbstring exif pcntl soap bcmath json \
 && docker-php-ext-enable pdo_mysql imagick xdebug
 
+#-----------------
 # Add UID '1000' to www-data
 #RUN usermod -u 1000 www-data
 
@@ -46,14 +47,14 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 
 # Obtém o composer mais recente
 #COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+#----------------------------------
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+# Criar usuário do sistema para executar comandos do Composer e Artisan
+#RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && chown -R $user:$user /home/$user
 
 # Defini diretório de trabalho
 WORKDIR /var/www
