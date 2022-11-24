@@ -34,22 +34,27 @@ services:
     # Banco de Dados (MySQL)
     image: mysql:8.0
     container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_HOST: "%"
+      #MYSQL_PASSWORD: secret
       #SERVICE_NAME: db
       #SERVICE_TAGS: dev
     ports:
       - ${DB_HOST}:${DB_PORT}
+    expose:
+      - 3307
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d
     networks:
       app-network:
         aliases:
-          - mysql_host #Any container connected to test network can access this simply by using mysql as hostname
+          - mysql_host #Qualquer contêiner conectado à rede de teste pode acessar isso simplesmente usando "mysql_host" como hostname
 
   # Definições do Servidor Web (SW)
   nginx:
