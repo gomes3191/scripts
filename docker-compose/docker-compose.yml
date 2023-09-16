@@ -1,9 +1,9 @@
 # Criado por: Francisco - gomes.tisystem@gmail.com
 version: "3.5"
+
+ # Definições do Servidor de Aplicação (SApp)
 services:
-  # Definições do Servidor de Aplicação (SApp)
   webapp:
-    # Servidor de Aplicação (PHP)
     build:
       context: ./
       dockerfile: Dockerfile
@@ -19,8 +19,6 @@ services:
     environment:
       XDEBUG_CONFIG: "idekey=${APP_IDE} client_host=${APP_CLIENT_IP} client_port=${APP_CLIENT_PORT}"
       PHP_IDE_CONFIG: "serverName=${APP_SERVER_NAME}"
-      #SERVICE_TAGS: dev
-      #SERVICE_NAME: app
     working_dir: /var/www
     volumes:
       - ./${APP_DIRECTORY_PATH}:/var/www
