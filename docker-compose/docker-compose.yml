@@ -7,15 +7,11 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
+      args: # Parâmetros necessários do [.env] sendo passado para a execução do Dockerfile.
         user: $USER
         uid: 1000
-        APP_SERVER_NAME: ${APP_SERVER_NAME}
-        APP_DIRECTORY_PATH: ${APP_DIRECTORY_PATH}
         PHP_IMG_VERSION: ${PHP_IMG_VERSION}
-        APP_IDE: ${APP_IDE}
-        APP_CLIENT_IP: ${APP_CLIENT_IP}
-        APP_CLIENT_PORT: ${APP_CLIENT_PORT}
+        XDEBUG_VERSION: ${XDEBUG_VERSION}
     #image: ${PHP_IMG_VERSION}
     container_name: webapp
     restart: unless-stopped
@@ -36,7 +32,6 @@ services:
 
   # Definições do Servidor de Banco de Dados (SBD)
   mysql:
-    # Banco de Dados (MySQL)
     image: mysql:8.0
     container_name: mysql
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -59,17 +54,13 @@ services:
     networks:
       app-network:
         aliases:
-          - mysql_host # Qualquer contêiner conectado à rede de teste pode acessar isso simplesmente usando "mysql_host" como hostname
+          - mysql_docker # Qualquer contêiner conectado à rede de teste pode acessar isso simplesmente usando "mysql_docker" como hostname
 
   # Definições do Servidor Web (SW)
   nginx:
-    # Servidor Web (Nginx)
     image: nginx:alpine
     container_name: nginx
     restart: unless-stopped
-    #environment:
-    #SERVICE_NAME: ${APP_SERVER_NAME}
-    #SERVICE_TAGS: dev
     tty: true
     ports:
       - 80:80
