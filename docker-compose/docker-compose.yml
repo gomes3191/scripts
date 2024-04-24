@@ -1,18 +1,15 @@
-# Criado por: Francisco - gomes.tisystem@gmail.com
 version: "3.8"
-
- # Definições do Servidor de Aplicação (SAw)
 services:
-  php-server:
+  php-server: # Definições do Servidor de Aplicação (php-server)
     build:
       context: ./
       dockerfile: Dockerfile
       args: # Parâmetros necessários do [.env] sendo passado para a execução do Dockerfile.
-        user: $USER
+        user: developer
         uid: 1000
         PHP_IMG_VERSION: ${PHP_IMG_VERSION}
         XDEBUG_VERSION: ${XDEBUG_VERSION}
-    image: php:7.4
+    image: ${PHP_IMG_VERSION}
     container_name: php-server
     restart: unless-stopped
     tty: true
@@ -21,14 +18,16 @@ services:
       PHP_IDE_CONFIG: "serverName=${APP_SERVER_NAME}"
     working_dir: /var/www
     volumes:
-      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ${DIRECTORY_PATH_APP1}:/var/www/app1
+      - ${DIRECTORY_PATH_APP2}:/var/www/app2
+      - ${DIRECTORY_PATH_APP3}:/var/www/app3
       - ./php/conf.d/php-dev.ini:/usr/local/etc/php/conf.d/php-dev.ini
       - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
     networks:
       - app-network
 
-  # Definições do Servidor de Banco de Dados (SBD)
+  # Definições do Servidor de Banco de Dados (mysql-server)
   mysql-server:
     image: mysql:8.0
     container_name: mysql-server
@@ -39,10 +38,8 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_HOST: "%"
-      #MYSQL_PASSWORD: secret
-      #SERVICE_NAME: db
-      #SERVICE_TAGS: dev
+      MYSQL_ROOT_HOST: "localhost"
+      # SERVICE_TAGS: db-mysql
     ports:
       - ${DB_HOST}:${DB_PORT}
     expose:
@@ -63,7 +60,9 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./${APP_DIRECTORY_PATH}:/var/www
+      - ${DIRECTORY_PATH_APP1}:/var/www/app1
+      - ${DIRECTORY_PATH_APP2}:/var/www/app2
+      - ${DIRECTORY_PATH_APP3}:/var/www/app3
       - ./nginx:/etc/nginx/conf.d/
     networks:
       - app-network
@@ -73,5 +72,5 @@ networks:
   app-network:
     name: app-network
     driver: bridge
-
-# Corrigi problema de bridge -> docker system prune -a --volumes && docker network prune
+    
+# Corrigi problema de bridge -> docker system prune -a --volumes && docker network prune && docker image prune

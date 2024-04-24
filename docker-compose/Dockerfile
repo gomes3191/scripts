@@ -1,14 +1,16 @@
-# Criado por: Francisco Aparecido - [gomes.tisystem@gmail.com].
-
+# Argumento definido em docker-compose.yml
 ARG PHP_IMG_VERSION
 
-# Usando uma imagem base leve do PHP
+# Set master image
 FROM ${PHP_IMG_VERSION}
 
 # Argumentos definidos em docker-compose.yml
 ARG user
 ARG uid
 ARG XDEBUG_VERSION
+ARG ${DIRECTORY_PATH_APP1}
+ARG ${DIRECTORY_PATH_APP2}
+ARG ${DIRECTORY_PATH_APP3}
 
 # Instalando dependências e limpando o cache
 RUN apt-get update && \
@@ -40,8 +42,25 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
     mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+# Criar diretórios de trabalho para cada aplicação
+RUN mkdir -p /var/www/app1
+RUN mkdir -p /var/www/app2
+RUN mkdir -p /var/www/app3
+
+# Copiar arquivos de cada aplicação para os respectivos diretórios
+COPY ${DIRECTORY_PATH_APP1} /var/www/app1
+COPY ${DIRECTORY_PATH_APP2} /var/www/app2
+COPY ${DIRECTORY_PATH_APP3} /var/www/app3
+
+# Definir www-data como proprietário dos diretórios de aplicação
+RUN chown -R www-data:www-data /var/www/app1 /var/www/app2 /var/www/app3
+
+# Definir permissões de escrita recursivas para www-data
+RUN chmod -R 777 /var/www/app1 /var/www/app2 /var/www/app3
+
 # Definindo o diretório de trabalho
 WORKDIR /var/www
 
 # Trocando para o usuário especificado em ARG
 USER $user
+

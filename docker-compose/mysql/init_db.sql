@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS bd_dev;
+CREATE DATABASE IF NOT EXISTS db_dev;
 
-use bd_dev;
+use db_dev;
 
 CREATE TABLE IF NOT EXISTS users (
     user_id INT NOT NULL AUTO_INCREMENT, 
