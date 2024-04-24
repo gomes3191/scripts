@@ -1,5 +1,5 @@
 # Criado por: Francisco - gomes.tisystem@gmail.com
-version: "3.5"
+version: "3.8"
 
  # Definições do Servidor de Aplicação (SAw)
 services:
