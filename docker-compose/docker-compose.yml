@@ -38,7 +38,7 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_HOST: "localhost"
+      MYSQL_ROOT_HOST: "%"
       # SERVICE_TAGS: db-mysql
     ports:
       - ${DB_HOST}:${DB_PORT}
