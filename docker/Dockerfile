@@ -43,10 +43,11 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user && \
     chown -R $user:$user /home/$user
 
 # Criar diretórios de trabalho para cada aplicação
-RUN mkdir -p /var/www/app1
-RUN mkdir -p /var/www/app2
-RUN mkdir -p /var/www/app3
 
+RUN mkdir -p /var/www/app1 && \
+    mkdir -p /var/www/app2 && \
+    mkdir -p /var/www/app3
+    
 # Copiar arquivos de cada aplicação para os respectivos diretórios
 COPY ${DIRECTORY_PATH_APP1} /var/www/app1
 COPY ${DIRECTORY_PATH_APP2} /var/www/app2
@@ -56,11 +57,12 @@ COPY ${DIRECTORY_PATH_APP3} /var/www/app3
 RUN chown -R www-data:www-data /var/www/app1 /var/www/app2 /var/www/app3
 
 # Definir permissões de escrita recursivas para www-data
-RUN chmod -R 777 /var/www/app1 /var/www/app2 /var/www/app3
+RUN chmod -R 777 /var/www/app1 /var/www/app2 /var/www/app3 && \
+rm -r /var/www/html
+
 
 # Definindo o diretório de trabalho
 WORKDIR /var/www
 
 # Trocando para o usuário especificado em ARG
 USER $user
-
