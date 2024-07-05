@@ -47,7 +47,6 @@ docker update  – Atualiza a configuração de um ou mais containers.
 docker version – Exibe as versões de API, Client e Server do host.
 docker volume  – Gerenciamento dos volumes no Docker.
 docker wait    – Aguarda o retorno da execução de um container para iniciar esse container.
-
-
+docker system prune --all --force --volumes | Remove contêineres parados, imagens pendentes, redes e volumes não usados.
 
 Obs.: É possível ver todos os comandos que o Docker possui, tendo o docker instalado, basta digitar no terminal docker --help
